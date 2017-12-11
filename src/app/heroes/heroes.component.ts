@@ -16,11 +16,18 @@ export class HeroesComponent implements OnInit {
     name: 'Guan Yu'
   };
 
+  selectedHero: Hero;
+
   heroes = HEROES;
 
   constructor() { }
 
   ngOnInit() {
+    // undefined selectedHero accessed from heroes.component.html will be handled by *ngIf
+    // this.selectedHero = this.hero;
   }
 
+  onSelect(hero: Hero) {
+    this.selectedHero = hero;
+  }
 }
