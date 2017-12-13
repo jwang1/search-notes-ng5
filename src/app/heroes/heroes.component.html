@@ -1,12 +1,13 @@
 
 <div *ngIf="selectedHero">
   <h2>{{selectedHero.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedHero.id}}</div>
+  <div><span class="glyphicon glyphicon-globe"> id: </span>{{selectedHero.id}}</div>
 
   <label>name:
     <input [(ngModel)]="selectedHero.name" placeholder="name">
   </label>
 </div>
+
 
 <div>
   <h2>Hereos:</h2>
@@ -16,3 +17,7 @@
     </li>
   </ul>
 </div>
+
+
+<!-- Detailed hero info -->
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>
