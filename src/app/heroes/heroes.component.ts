@@ -4,6 +4,9 @@ import { Hero } from '../hero';
 import { HEROES } from '../mock-heroes';
 import { HeroService } from '../hero.service';
 
+import { Observable } from 'rxjs/Observable';
+
+
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
@@ -24,7 +27,7 @@ export class HeroesComponent implements OnInit {
   constructor(private heroService: HeroService) { }
 
   populateHeros(): void {
-    this.heroes = this.heroService.getHeros();
+    this.heroService.getHeros().subscribe(heros => this.heroes = heros);
   }
 
   ngOnInit() {
