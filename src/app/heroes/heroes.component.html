@@ -1,4 +1,17 @@
 
+<br />
+
+<div>
+  <label>Hero name:
+    <input #heroName />
+  </label>
+  <button (click)="add(heroName.value); heroName.value=''">
+    add
+  </button>
+</div>
+
+<br />
+
 <div>
   <h2>Hereos:</h2>
   <ul class="heroes">

@@ -1,5 +1,6 @@
 import {Hero} from './hero';
 
+// can be deleted, now that we use HttpClientInMemoryWebApiModule
 export const HEROES: Hero[] = [
   {id: 11, name: 'Chao Chao'},
   { id: 12, name: 'Narco' },
