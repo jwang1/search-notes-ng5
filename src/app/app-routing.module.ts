@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { HeroesComponent } from './heroes/heroes.component';
 
+import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+
 import {DashboardComponent} from './dashboard/dashboard.component';
 
 const routes: Routes = [
@@ -14,7 +16,8 @@ const routes: Routes = [
   // too bad, TypeScript still could not catch typo "dahsboard",
   // there were exception on console - ERROR Error: Uncaught (in promise): Error: Cannot match any routes. URL Segment: 'dashboard'
   { path: 'dashboard', component: DashboardComponent} ,
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'}
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  { path: 'detail/:id', component: HeroDetailComponent}
 ];
 
 @NgModule({

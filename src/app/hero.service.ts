@@ -20,4 +20,10 @@ export class HeroService {
     return of(HEROES);
   }
 
+  getHero(id: number): Observable<Hero> {
+    // backticks for JavaScript literal
+    this.messageService.add(`MessageService fetched hero id = ${id}`);
+
+    return of(HEROES.find(hero => hero.id === id));
+  }
 }
