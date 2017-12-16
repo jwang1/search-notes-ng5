@@ -28,6 +28,32 @@ export class HeroService {
 
   private heroesUrl = 'api/heroes';  // URL to web api
 
+  //////// private methods //////////
+
+  private log(msg: string) {
+    this.messageService.add('HeroService: ' + msg);
+  }
+
+  /**
+   * Notice the return, which is a function, passed in any type, returns an Obserable<T> of type T
+   *
+   * @param {string} operation
+   * @param {T} result
+   * @returns {(error: any) => Observable<T>}
+   */
+  private handleErr<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
   //////// constructor - for Dependency-Injection //////////
 
   constructor(
@@ -79,24 +105,17 @@ export class HeroService {
     );
   }
 
+  //////// Delete methods //////////
 
-  //////// private methods //////////
+  deleteHero(hero: Hero | number): Observable<Hero> {
+    const id = typeof hero === 'number' ? hero : hero.id;
 
-  private log(msg: string) {
-    this.messageService.add('HeroService: ' + msg);
+    const url = `${this.heroesUrl}/${id}`;
+
+    return this.http.delete<Hero>(this.heroesUrl, httpOptions)
+      .pipe(
+        tap(_ => this.log(`delete hero with id=${id}`)),
+        catchError(this.handleErr<any>(`deleteHero`))
+      );
   }
-
-  private handleErr<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
 }

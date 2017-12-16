@@ -46,4 +46,11 @@ export class HeroesComponent implements OnInit {
       });
   }
 
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    // still need to subscribe() for deleteHero api which does not return any Observable
+    // if not subscribe(), the request will NOT be sent -- the async nature of the RxJS
+    this.heroService.deleteHero(hero).subscribe();
+  }
+
 }
